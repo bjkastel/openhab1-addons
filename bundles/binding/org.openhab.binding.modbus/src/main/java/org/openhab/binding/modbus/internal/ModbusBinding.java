@@ -89,7 +89,7 @@ public class ModbusBinding extends AbstractActiveBinding<ModbusBindingProvider> 
     private static final String TCP_PREFIX = "tcp";
     private static final String SERIAL_PREFIX = "serial";
 
-    private static final String VALID_CONFIG_KEYS = "connection|id|start|length|type|valuetype|rawdatamultiplier|writemultipleregisters|updateunchangeditems|postundefinedonreaderror";
+    private static final String VALID_CONFIG_KEYS = "connection|id|start|length|type|valuetype|rawdatamultiplier|writemultipleregisters|updateunchangeditems|postundefinedonreaderror|coilreadoffset";
     private static final Pattern EXTRACT_MODBUS_CONFIG_PATTERN = Pattern.compile(
             "^(" + TCP_PREFIX + "|" + UDP_PREFIX + "|" + SERIAL_PREFIX + "|)\\.(.*?)\\.(" + VALID_CONFIG_KEYS + ")$");
 
@@ -689,6 +689,8 @@ public class ModbusBinding extends AbstractActiveBinding<ModbusBindingProvider> 
                         modbusSlave.setUpdateUnchangedItems(Boolean.valueOf(value.toString()));
                     } else if ("postundefinedonreaderror".equals(configKey)) {
                         modbusSlave.setPostUndefinedOnReadError(Boolean.valueOf(value.toString()));
+                    } else if ("coilreadoffset".equals(configKey)) {
+                        modbusSlave.setCoilReadOffset(Integer.valueOf(value));
                     } else {
                         throw new ConfigurationException(configKey,
                                 "the given configKey '" + configKey + "' is unknown");
