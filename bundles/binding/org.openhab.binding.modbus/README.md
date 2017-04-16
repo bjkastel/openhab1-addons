@@ -82,6 +82,7 @@ Valid slave parameters are
 | valuetype | optional | tells how interpret the register data. For details, consult [Register interpretation (valuetype) on read & write](#register-interpretation-valuetype-on-read--write). 
 | updateunchangeditems | optional | **Since 1.9.0*. `true` or `false`. Controls whether the binding sends an update event on every successful poll (`true`) or only if the state of the item actually changes (`false`).  Default is `false`. When polling many items with high poll frequency, setting this parameter to `true` may cause significant CPU usage. |
 | postundefinedonreaderror | optional | **Since 1.9.0**. `true` or `false`. Controls whether the binding sends `Undefined` (`UnDefType.UNDEF`) to the items associated with this slave when a read error occurs. Here read error refers to connection issues (cannot establish connection), I/O error (e.g. uninterrupted connection, unexpected EOF), [modbus protocol exceptions](http://www.simplymodbus.ca/exceptions.htm) (e.g. "Illegal data address"), or response transaction id not matching the request. Note that when `updateunchangeditems` is enabled, the `Undefined` is sent only once on errors, unless the slave recovers from the error. |
+| coilreadoffset | optional | **Since 1.10.0*. In case that an offset is required to read the output coil status. (required e.g. for Wago 750-852) |
 
 ### Advanced connection parameters
 

@@ -124,6 +124,13 @@ public abstract class ModbusSlave {
     private boolean postUndefinedOnReadError = false;
 
     /**
+     * A offset to read coil states.
+     * 
+     * default is 0
+     */
+    private int coilReadOffset = 0;
+
+    /**
      * @param slave slave name from cfg file used for item binding
      * @connectionPool pool to create connections
      */
@@ -392,7 +399,7 @@ public abstract class ModbusSlave {
             Exception localReadError = null;
             try {
                 if (ModbusBindingProvider.TYPE_COIL.equals(getType())) {
-                    ModbusRequest request = new ReadCoilsRequest(getStart(), getLength());
+                    ModbusRequest request = new ReadCoilsRequest(getStart() + getCoilReadOffset(), getLength());
                     if (this instanceof ModbusSerialSlave) {
                         request.setHeadless();
                     }
@@ -600,5 +607,13 @@ public abstract class ModbusSlave {
 
     public void setPostUndefinedOnReadError(boolean postUndefinedOnReadError) {
         this.postUndefinedOnReadError = postUndefinedOnReadError;
+    }
+
+    private int getCoilReadOffset() {
+        return coilReadOffset;
+    }
+
+    public void setCoilReadOffset(Integer coilReadOffset) {
+        this.coilReadOffset = coilReadOffset;
     }
 }
